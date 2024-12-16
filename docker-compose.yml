@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: ./app
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    depends_on:
+      - mongo
+    networks:
+      - app_mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_mongo
+      - mongo_express
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo_express
+    ports:
+      - "${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    networks:
+      - mongo_express
+
+volumes:
+  mongo_data:
+
+networks:
+  app_mongo:
+    driver: bridge
+  mongo_express:
+    driver: bridge

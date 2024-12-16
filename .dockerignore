@@ -1,0 +1,14 @@
+**/__pycache__
+*.pyc
+*.pyo
+*.pyd
+.dockerignore
+Dockerfile
+.git
+*.zip
+*.pdf
+*.json
+.vscode
+.idea
+*.swp
+README.md
